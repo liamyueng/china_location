@@ -295,8 +295,8 @@ def find_location(lng: float, lat: float) -> Dict[str, Optional[str]]:
     
     Example:
         >>> from pg_simple_query import find_location
-        >>> find_location(110.995, 22.918)
-        {'province': '广西壮族自治区', 'city': '梧州市', 'district': '岑溪市', ...}
+        >>> find_location(121.544, 31.221)
+        {'province': '上海市', 'city': '上海市', 'district': '浦东新区', ...}
     """
     return get_query().find_location(lng, lat)
 
@@ -310,7 +310,7 @@ if __name__ == '__main__':
         
         # 测试查询
         test_coords = [
-            (110.995, 22.918),   # 岑溪市中心
+            (121.544, 31.221),   # 浦东新区中心
             (116.407, 39.904),   # 北京天安门
             (121.474, 31.230),   # 上海
             (113.264, 23.129),   # 广州
@@ -327,15 +327,15 @@ if __name__ == '__main__':
             print(f"  ({lng}, {lat}) => {province} {city} {district}")
         
         # 测试按名称搜索
-        print("\n按名称搜索 '岑溪':")
+        print("\n按名称搜索 '浦东':")
         print("-" * 60)
-        for item in query.find_by_name('岑溪'):
+        for item in query.find_by_name('浦东'):
             print(f"  {item['name']} - {item['path']}")
         
         # 测试查找附近
-        print("\n查找 (110.995, 22.918) 附近的区县:")
+        print("\n查找 (121.544, 31.221) 附近的区县:")
         print("-" * 60)
-        for item in query.find_nearby(110.995, 22.918, level=2, limit=5):
+        for item in query.find_nearby(121.544, 31.221, level=2, limit=5):
             print(f"  {item['name']}: {item['distance_approx_m']/1000:.2f} km ({item['path']})")
         
         query.close()

@@ -22,9 +22,9 @@
 from coordinate_query import CoordinateQuery
 
 query = CoordinateQuery("ok_geo.csv")
-result = query.find_location(110.995, 22.918)
+result = query.find_location(121.544, 31.221)
 print(result)
-# {'province': '广西壮族自治区', 'city': '梧州市', 'district': '岑溪市'}
+# {'province': '上海市', 'city': '上海市', 'district': '浦东新区'}
 ```
 
 ### 2. PostgreSQL + PostGIS 方式（高性能）
@@ -34,8 +34,8 @@ print(result)
 ```python
 from pg_query import find_location
 
-result = find_location(110.995, 22.918)
-# {'province': None, 'city': '梧州市', 'district': '岑溪市', 'full_path': '...'}
+result = find_location(121.544, 31.221)
+# {'province': None, 'city': '上海市', 'district': '浦东新区', 'full_path': '...'}
 ```
 
 ### 3. PostgreSQL 无 PostGIS 方式（轻量级）
@@ -45,8 +45,8 @@ result = find_location(110.995, 22.918)
 ```python
 from pg_simple_query import find_location
 
-result = find_location(110.995, 22.918)
-# {'province': None, 'city': '梧州市', 'district': '岑溪市', 'full_path': '...'}
+result = find_location(121.544, 31.221)
+# {'province': None, 'city': '上海市', 'district': '浦东新区', 'full_path': '...'}
 ```
 
 #### PostgreSQL 安装和设置
@@ -70,13 +70,13 @@ python import_to_pg_simple.py
 -- 查询坐标所在区域
 SELECT name, ext_path, deep
 FROM regions
-WHERE ST_Contains(polygon, ST_SetSRID(ST_Point(110.995, 22.918), 4326))
+WHERE ST_Contains(polygon, ST_SetSRID(ST_Point(121.544, 31.221), 4326))
 ORDER BY deep DESC;
 
 -- 查询距离某点最近的区县
 SELECT name, 
        ST_Distance(
-           ST_SetSRID(ST_Point(110.995, 22.918), 4326)::geography,
+           ST_SetSRID(ST_Point(121.544, 31.221), 4326)::geography,
            ST_SetSRID(ST_Point(center_lng, center_lat), 4326)::geography
        ) AS dist_meters
 FROM regions
@@ -176,8 +176,8 @@ with VehicleTracker() as tracker:
 ```python
 # 行政区划查询
 from pg_simple_query import find_location
-result = find_location(110.995, 22.918)
-# => {'province': None, 'city': '梧州市', 'district': '岑溪市', ...}
+result = find_location(121.544, 31.221)
+# => {'province': None, 'city': '上海市', 'district': '浦东新区', ...}
 
 # 车辆轨迹圆形范围查询
 from vehicle_tracker import find_in_circle

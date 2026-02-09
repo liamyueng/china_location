@@ -227,13 +227,13 @@ def verify_data(conn):
         level_name = ['省/直辖市', '地级市', '区/县'][deep] if deep < 3 else f'级别{deep}'
         print(f"  {level_name}: {count}")
     
-    # 查询岑溪市
-    print("\n查询岑溪市...")
+    # 查询浦东新区
+    print("\n查询浦东新区...")
     cur.execute("""
         SELECT id, name, ext_path, center_lng, center_lat,
                bbox_min_lng, bbox_max_lng, bbox_min_lat, bbox_max_lat
         FROM regions 
-        WHERE name = '岑溪市'
+        WHERE name = '浦东新区'
     """)
     row = cur.fetchone()
     if row:

@@ -11,8 +11,8 @@ def main():
     # 使用便捷函数
     print("1. 使用便捷函数 find_location():")
     print("-" * 50)
-    result = find_location(110.995, 22.918)
-    print(f"   find_location(110.995, 22.918)")
+    result = find_location(121.544, 31.221)
+    print(f"   find_location(121.544, 31.221)")
     print(f"   => {result}")
     
     # 使用类
@@ -22,7 +22,7 @@ def main():
     with PGLocationQuery() as query:
         # 多个测试点
         test_points = [
-            (110.995, 22.918, "岑溪市中心"),
+            (121.544, 31.221, "浦东新区中心"),
             (116.407, 39.904, "北京天安门"),
             (121.474, 31.230, "上海外滩"),
             (113.264, 23.129, "广州"),
@@ -44,7 +44,7 @@ def main():
         # 批量查询示例
         print("3. 批量查询:")
         print("-" * 50)
-        coords = [(110.995, 22.918), (116.407, 39.904), (121.474, 31.230)]
+        coords = [(121.544, 31.221), (116.407, 39.904), (121.474, 31.230)]
         results = query.batch_find(coords)
         for r in results:
             coord = r['coordinate']

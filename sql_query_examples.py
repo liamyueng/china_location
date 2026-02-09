@@ -51,7 +51,7 @@ def main():
     print("=== SQL 直接查询示例 ===\n")
     
     test_coords = [
-        (110.995, 22.918, "岑溪市中心"),
+        (121.544, 31.221, "浦东新区中心"),
         (116.407, 39.904, "北京天安门"),
     ]
     
@@ -80,22 +80,22 @@ def main():
     cur = conn.cursor()
     
     # 1. 查询某个区域包含的所有下级区域
-    print("1. 查询梧州市下所有区县:")
+    print("1. 查询上海市下所有区县:")
     cur.execute("""
         SELECT name, center_lng, center_lat 
         FROM regions 
-        WHERE pid = (SELECT id FROM regions WHERE name = '梧州市' AND deep = 1)
+        WHERE pid = (SELECT id FROM regions WHERE name = '上海市' AND deep = 1)
         ORDER BY id
     """)
     for name, lng, lat in cur.fetchall():
         print(f"   - {name} ({lng}, {lat})")
     
     # 2. 查询距离某点最近的几个区县
-    print("\n2. 距离 (110.995, 22.918) 最近的 5 个区县:")
+    print("\n2. 距离 (121.544, 31.221) 最近的 5 个区县:")
     cur.execute("""
         SELECT name, ext_path,
                ST_Distance(
-                   ST_SetSRID(ST_Point(110.995, 22.918), 4326)::geography,
+                   ST_SetSRID(ST_Point(121.544, 31.221), 4326)::geography,
                    ST_SetSRID(ST_Point(center_lng, center_lat), 4326)::geography
                ) AS dist
         FROM regions
