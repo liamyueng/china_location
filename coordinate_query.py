@@ -190,7 +190,7 @@ class CoordinateQuery:
             lat: 纬度
         
         Returns:
-            完整路径如 "上海市 上海市 黄浦区"，未找到返回 None
+            完整路径如 "上海市 上海市 浦东新区"，未找到返回 None
         """
         result = self.query(lon, lat)
         return result['full_path']
@@ -257,7 +257,7 @@ if __name__ == '__main__':
         (116.4074, 39.9042, "北京天安门附近"),
         (121.4737, 31.2304, "上海人民广场附近"),
         (113.2644, 23.1291, "广州"),
-        (110.5, 22.9, "黄浦区范围内测试点"),
+        (110.5, 22.9, "浦东新区范围内测试点"),
     ]
     
     query = CoordinateQuery()

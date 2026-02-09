@@ -91,13 +91,20 @@ def create_tables(conn):
 def parse_polygon(polygon_str):
     """
     解析 polygon 字符串为点列表，同时计算边界框
-    输入格式: "lng lat,lng lat,..."
+    输入格式: "lng lat,lng lat,..." 或 "lng lat,lng lat,...;lng lat,lng lat,..." (多个多边形)
+    对于多个多边形，只取第一个（主多边形）
     返回: (points_list, bbox) 或 (None, None)
     """
     if not polygon_str or polygon_str.strip() == '':
         return None, None
     
     try:
+        # 如果有多个多边形（用分号分隔），取第一个（最大的主多边形）
+        if ';' in polygon_str:
+            polygon_parts = polygon_str.split(';')
+            # 取第一个多边形（通常是主体）
+            polygon_str = polygon_parts[0]
+        
         points = []
         min_lng = float('inf')
         max_lng = float('-inf')
@@ -227,13 +234,13 @@ def verify_data(conn):
         level_name = ['省/直辖市', '地级市', '区/县'][deep] if deep < 3 else f'级别{deep}'
         print(f"  {level_name}: {count}")
     
-    # 查询黄浦区
-    print("\n查询黄浦区...")
+    # 查询浦东新区
+    print("\n查询浦东新区...")
     cur.execute("""
         SELECT id, name, ext_path, center_lng, center_lat,
                bbox_min_lng, bbox_max_lng, bbox_min_lat, bbox_max_lat
         FROM regions 
-        WHERE name = '黄浦区'
+        WHERE name = '浦东新区'
     """)
     row = cur.fetchone()
     if row:

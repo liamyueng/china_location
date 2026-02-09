@@ -22,7 +22,7 @@ class Region:
     pid: int                         # 父级ID
     deep: int                        # 层级：0=省，1=市，2=区县
     name: str                        # 区域名称
-    ext_path: str                    # 完整路径，如 "上海市 上海市 黄浦区"
+    ext_path: str                    # 完整路径，如 "上海市 上海市 浦东新区"
     center: Optional[Tuple[float, float]]  # 中心坐标 (经度, 纬度)
     bbox: Optional[Tuple[float, float, float, float]]  # 边界框 (min_lon, min_lat, max_lon, max_lat)
     polygons: List[List[Tuple[float, float]]]  # 多边形边界列表
@@ -198,8 +198,8 @@ if __name__ == '__main__':
     loader = get_loader()
     loader.load()
     
-    # 查找黄浦区
-    region = loader.get_region_by_name('黄浦')
+    # 查找浦东新区
+    region = loader.get_region_by_name('浦东')
     if region:
         print(f"\n找到: {region.ext_path}")
         print(f"  ID: {region.id}")

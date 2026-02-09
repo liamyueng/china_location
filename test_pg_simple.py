@@ -11,8 +11,8 @@ def main():
     # 使用便捷函数
     print("1. 使用便捷函数 find_location():")
     print("-" * 50)
-    result = find_location(121.484, 31.232)
-    print(f"   find_location(121.484, 31.232)")
+    result = find_location(121.544, 31.221)
+    print(f"   find_location(121.544, 31.221)")
     print(f"   => {result}")
     
     # 使用类
@@ -21,7 +21,7 @@ def main():
     
     with PGSimpleQuery() as query:
         test_points = [
-            (121.484, 31.232, "黄浦区中心"),
+            (121.544, 31.221, "浦东新区中心"),
             (116.407, 39.904, "北京天安门"),
             (121.474, 31.230, "上海外滩"),
             (113.264, 23.129, "广州"),
@@ -39,16 +39,16 @@ def main():
             print(f"   ({lng:>7}, {lat:>6}) [{desc:^8}] => {province} / {city} / {district}")
         
         # 详细查询
-        print("\n3. 详细查询 (121.484, 31.232):")
+        print("\n3. 详细查询 (121.544, 31.221):")
         print("-" * 50)
-        for item in query.find_location_detail(121.484, 31.232):
+        for item in query.find_location_detail(121.544, 31.221):
             level_name = ['省', '市', '区县'][item['level']] if item['level'] < 3 else f"L{item['level']}"
             print(f"   [{level_name}] {item['name']}, 距中心约 {item['distance_approx_m']:.0f}米")
         
         # 批量查询
         print("\n4. 批量查询:")
         print("-" * 50)
-        coords = [(121.484, 31.232), (116.407, 39.904), (121.474, 31.230)]
+        coords = [(121.544, 31.221), (116.407, 39.904), (121.474, 31.230)]
         results = query.batch_find(coords)
         for r in results:
             coord = r['coordinate']
