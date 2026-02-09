@@ -259,8 +259,8 @@ def find_location(lng: float, lat: float) -> Dict[str, Optional[str]]:
     
     Example:
         >>> from pg_query import find_location
-        >>> find_location(121.544, 31.221)
-        {'province': '上海市', 'city': '上海市', 'district': '浦东新区', 'full_path': '...'}
+        >>> find_location(121.484, 31.232)
+        {'province': '上海市', 'city': '上海市', 'district': '黄浦区', 'full_path': '...'}
     """
     return get_query().find_location(lng, lat)
 
@@ -274,7 +274,7 @@ if __name__ == '__main__':
         
         # 测试查询
         test_coords = [
-            (121.544, 31.221),   # 浦东新区中心
+            (121.484, 31.232),   # 黄浦区中心
             (116.407, 39.904),   # 北京天安门
             (121.474, 31.230),   # 上海
             (113.264, 23.129),   # 广州
@@ -291,15 +291,15 @@ if __name__ == '__main__':
             print(f"  ({lng}, {lat}) => {province} {city} {district}")
         
         # 测试按名称搜索
-        print("\n按名称搜索 '浦东':")
+        print("\n按名称搜索 '黄浦':")
         print("-" * 60)
-        for item in query.find_by_name('浦东'):
+        for item in query.find_by_name('黄浦'):
             print(f"  {item['name']} - {item['path']}")
         
         # 测试详细查询
-        print("\n详细查询 (121.544, 31.221):")
+        print("\n详细查询 (121.484, 31.232):")
         print("-" * 60)
-        for item in query.find_location_detail(121.544, 31.221):
+        for item in query.find_location_detail(121.484, 31.232):
             level_name = ['省', '市', '区县'][item['level']] if item['level'] < 3 else f"L{item['level']}"
             print(f"  [{level_name}] {item['name']}, 距中心 {item['distance_to_center_m']}米")
         

@@ -217,13 +217,13 @@ def verify_data(conn):
         level_name = ['省/直辖市', '地级市', '区/县'][deep] if deep < 3 else f'级别{deep}'
         print(f"  {level_name}: {count}")
     
-    # 查询浦东新区
-    print("\n查询浦东新区...")
+    # 查询黄浦区
+    print("\n查询黄浦区...")
     cur.execute("""
         SELECT id, name, ext_path, center_lng, center_lat,
                ST_AsText(ST_Centroid(polygon)) as centroid
         FROM regions 
-        WHERE name = '浦东新区'
+        WHERE name = '黄浦区'
     """)
     row = cur.fetchone()
     if row:
@@ -234,11 +234,11 @@ def verify_data(conn):
         print(f"  质心: {row[5]}")
     
     # 测试坐标查询
-    print("\n测试坐标查询 (121.544, 31.221)...")
+    print("\n测试坐标查询 (121.484, 31.232)...")
     cur.execute("""
         SELECT name, ext_path, deep
         FROM regions
-        WHERE ST_Contains(polygon, ST_SetSRID(ST_Point(121.544, 31.221), 4326))
+        WHERE ST_Contains(polygon, ST_SetSRID(ST_Point(121.484, 31.232), 4326))
         ORDER BY deep DESC
     """)
     results = cur.fetchall()
